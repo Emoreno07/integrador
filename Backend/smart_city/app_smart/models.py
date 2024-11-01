@@ -20,3 +20,28 @@ class Sensor(models.Model):
     mac_address = models.CharField(max_length=20, null=True)
     def __str__(self) -> str:
         return f'{self.tipo} - {self.localizacao}'
+
+class TemperaturaData(models.Model):
+    sensor = models.ForeignKey(Sensor, on_delete=models.CASCADE)
+    valor = models.FloatField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return f"Temperatura: {self.valor} °C - {self.timestamp}"
+
+class UmidadeData(models.Model):
+    sensor = models.ForeignKey(Sensor, on_delete=models.CASCADE)
+    valor = models.FloatField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return f"Umidade: {self.valor}% - {self.timestamp}"
+class ContadorData(models.Model):
+    sensor = models.ForeignKey(Sensor, on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return f"Contagem - {self.timestamp}"
+class LuminosidadeData(models.Model):
+    sensor = models.ForeignKey(Sensor, on_delete=models.CASCADE)
+    valor = models.FloatField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return f"luminosidade: {self.valor} Lux - {self.timestamp}"

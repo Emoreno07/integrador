@@ -1,4 +1,3 @@
-tipo,unidade_medida,latitude,longitude,localizacao,responsavel,status_operacional,observacao,mac_address
 Umidade,%,-22.913558,-47.067072,LAB 100,Maria Silva,True,Sensor do tipo Umidade com unidade de medida %.,
 Contador,contagem,-22.913238,-47.067549,LAB 101,João Santos,True,Sensor do tipo Contador com unidade de medida contagem.,
 Contador,contagem,-22.913003,-47.068994,LAB 102,Ana Costa,True,Sensor do tipo Contador com unidade de medida contagem.,
