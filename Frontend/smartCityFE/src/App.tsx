@@ -9,7 +9,6 @@ import {
  } from 'react-router-dom'
 import Inicial from './pages/inicial/inicial.tsx'
 import Sensores from './pages/sensores/sensores.tsx'
-import Header from './components/header.tsx'
 import SharedComponents from './pages/sharedComponents/shared.tsx'
 const appRouter = createBrowserRouter(
   createRoutesFromElements(

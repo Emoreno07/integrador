@@ -1,3 +1,35 @@
-.main{
-    min-height: 70vh;
+.button{
+    margin-top: 50px;
+}
+.h1{
+    width: 50%;
+}
+.h2{
+    font-weight: 100;
+}
+.banner-info{
+    width: 100%;
+    min-height: 400px;
+}
+.img-logo{
+    width: 35%;
+    height: auto;
+}
+
+.area-info{
+    width: 100%;
+    min-height: 400px;
+    
+}
+.area{
+    min-height: inherit;
+    padding-left: 5%;
+    justify-content: space-evenly;
+}
+
+.como-ver{
+    background-color: #4095CE;
+}
+.o-que{
+    background-color: #000;
 }

@@ -1,0 +1,16 @@
+.header{
+    justify-content: space-between;
+    width: 100%;
+    min-height: 150px;
+    background-color: transparent;
+    padding-right: 20px;
+}
+.nav{
+    justify-content: space-evenly;
+}
+.a{
+    text-decoration: none;
+    font-size: 2rem;
+    font-family: 'Poppins-Bold';
+    color: #FFF;
+}

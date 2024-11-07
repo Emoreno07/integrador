@@ -1,12 +1,65 @@
+@font-face {
+    font-family: 'Poppins-Regular';
+    src: url('./fonts/Poppins/Poppins-Regular.ttf');
+}
+@font-face {
+    font-family: 'Poppins-Bold';
+    src: url('./fonts/Poppins/Poppins-Bold.ttf');
+}
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 body, html{
-    width: 100vw;
+    width: 99vw;
     min-height: 100vh;
     background-color: #B3D2E7;
+    font-family: 'Poppins-Regular';
+}
+h1{
+    color: #FFF;
+    font-size: 2rem;
+    font-family: 'Poppins-Bold';
+}
+h2{
+    color: #FFF;
+    font-size: 1.5rem;
+}
+button{
+    height: fit-content;
+    width: fit-content;
+    padding: 5px 4rem;
+    font-size: 1.5rem;
+    border-radius: 10px;
+    color: #FFF;
+    border: none;
+    font-family: 'Poppins-Bold';
+    background-color: #4095CE;;
+}
+main{
+    width: 100%;
+    min-height:100vh;
+    align-content: flex-start;
+    flex-wrap: wrap;
+}
+footer{
+    width: 100%;
+    background-color: #4095CE;
+    min-height: 70px;
+    justify-content: flex-start;
+    padding-left: 20px;
+
+
+}
+section{
+    width: 100%;
+    min-height: 300px;
+}
+.titulo{
+    font-size: 4rem;
+    color: white;
+    font-family: 'Poppins-Bold';
 }
 .flex-container{
     display: flex;
@@ -22,4 +75,9 @@ body, html{
 }
 .grow{
     flex: 1;
+}
+@media screen and (max-width:1200px) {
+    html,body{
+        font-size: 80%;
+    }
 }
