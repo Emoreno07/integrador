@@ -1,5 +1,19 @@
+import { Router, useLocation, useNavigate } from 'react-router-dom';
+import { useIsAuthenticated } from '../../utils/ManageLogin';
 import styles from './inicial.module.css';
+import { useEffect, useState } from 'react';
 export default function Inicial(){
+    const navigation = useNavigate();
+    useEffect(() =>{
+        async function getLog(){
+            const isLogged = await useIsAuthenticated(localStorage.getItem('token'))
+            if(!isLogged){
+                navigation('/login')
+            }
+        }
+        getLog()
+        return () =>{}
+    },[])
     return(
         <main className={`flex-container flex-center`}>
             <section className={`flex-container flex-center`}>

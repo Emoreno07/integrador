@@ -17,3 +17,11 @@ export interface Data{
     valor?: number,
 
 }
+export interface loginSchema{
+    username: string,
+    password: string,
+}
+export interface Token{
+    access?: string,
+    refresh?: string
+}
