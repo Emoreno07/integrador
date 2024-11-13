@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import { logUser } from '../../utils/ManageLogin';
 import styles from './login.module.css'
 import { json, useNavigate } from 'react-router-dom';
@@ -9,11 +9,7 @@ export default function Login(){
     const [user , setUser]= useState('');
     const [pass , setPass]= useState('');
     const [email, setEmail] = useState('');
-    const [token,setToken] = useState<Token>();
-    if(token){
-        localStorage.setItem('token',JSON.stringify(token));
-        nav('/')
-    }
+    const [token,setToken] = useState<string>();
     const handleChange = (e : ChangeEvent) =>{
         e.stopPropagation();
         const id = e.currentTarget.getAttribute('id');
@@ -27,7 +23,14 @@ export default function Login(){
         else{
             setPass(input.value);
         }
-    }    
+    }
+    useEffect(() =>{
+        if(token){
+            localStorage.setItem('token',JSON.stringify(token));
+            nav('/')
+        }
+        return () => {}
+    },[token]) 
     return (
         <main className="flex-container flex-center">
             <form className={`flex-container flex-center flex-column ${styles['section']}`}>
@@ -40,7 +43,7 @@ export default function Login(){
 
                 <h2 className={`${styles['h2']}`}>Senha</h2>             
                 <input id='senha' className={`${styles['input']}`} type="password" required={true} placeholder='minha senha' onChange={handleChange}/>     
-                <button onClick={(e) => logUser(user,email,pass, e).then(data => setToken(data))} type="submit" id='button-login'>Entrar</button>
+                <button onClick={(e) => logUser(user,email,pass, e).then(data => setToken(data?.access))} type="submit" id='button-login'>Entrar</button>
             </form>
         </main>
     )
