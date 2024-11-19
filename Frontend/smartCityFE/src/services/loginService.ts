@@ -1,7 +1,9 @@
-import { loginSchema, Token } from "./types";
+import { loginSchema, Token } from "../utils/types";
 import { MouseEvent } from "react";
+import { useCookies } from "react-cookie";
 import { json, useNavigate } from "react-router-dom";
-export async function logUser(user: string, email: string, password: string, e : MouseEvent<any,any>) : Promise<Token |undefined>{
+export async function logUser(user: string, email: string, password: string, e : MouseEvent<any,any>) : Promise<Token | number>{
+    console.log('s')
     e.preventDefault();
     e.stopPropagation();
     const loginUser : loginSchema = {
@@ -19,23 +21,29 @@ export async function logUser(user: string, email: string, password: string, e :
     )
     if(token.status === 200){
         const data = await token.json();
-        return data.access
+        return data
     }
     else{
-        return undefined
+        return token.status
     }
     
 }
-
-export async function useIsAuthenticated(refreshToken: string | undefined | null): Promise<[boolean, string | undefined]>{
-
+export function verifyCredentials(token : number | Token) : string | Token{
+    if(typeof(token) === 'number'){
+        return ( token === 401) ? 'Usuario/senha Inválidos'  : 'something went wrong, code: ' + token
+    }
+    else{
+        return token
+    }
+}
+export async function getAccessByRefresh(refreshToken: string): Promise<[boolean, string | undefined]>{
     const req = await fetch('http://127.0.0.1:8000/api/token/refresh/',{
         method: 'POST',
         headers: {
             'Content-Type' : 'application/json'
         },
         body : JSON.stringify({
-            access: refreshToken
+            refresh: refreshToken
         })
     })
     const token: Token = await req.json()

@@ -1,3 +1,15 @@
-section{
-    background-color: red;
+.section{
+    
+    flex-direction: column;
+}
+.section > h1{
+    width: 100%;
+}
+.area-card{
+    min-width: 100%;
+    height: fit-content;
+    scroll-snap-type: x mandatory;
+    overflow-x: auto;
+    column-gap: 2rem;
+    padding-bottom: 20px;
 }

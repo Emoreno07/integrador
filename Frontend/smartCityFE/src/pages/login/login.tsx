@@ -1,10 +1,12 @@
 import { ChangeEvent, useEffect, useState } from 'react'
-import { logUser } from '../../utils/ManageLogin';
+import { logUser, verifyCredentials } from '../../services/loginService';
 import styles from './login.module.css'
 import { json, useNavigate } from 'react-router-dom';
 import { Token } from '../../utils/types';
+import { useCookies } from 'react-cookie';
 
 export default function Login(){
+    const [cookies,setCookies,removeCookies] = useCookies()
     const nav = useNavigate();
     const [user , setUser]= useState('');
     const [pass , setPass]= useState('');
@@ -26,7 +28,7 @@ export default function Login(){
     }
     useEffect(() =>{
         if(token){
-            localStorage.setItem('token',JSON.stringify(token));
+            setCookies('accessToken',token)
             nav('/')
         }
         return () => {}
@@ -43,7 +45,18 @@ export default function Login(){
 
                 <h2 className={`${styles['h2']}`}>Senha</h2>             
                 <input id='senha' className={`${styles['input']}`} type="password" required={true} placeholder='minha senha' onChange={handleChange}/>     
-                <button onClick={(e) => logUser(user,email,pass, e).then(data => setToken(data?.access))} type="submit" id='button-login'>Entrar</button>
+                <button onClick={(e) => {
+                    logUser(user,email,pass, e)
+                    .then(data => {
+                        const verification = verifyCredentials(data)
+                            if(typeof(verification) === 'string'){
+                                alert(verification)
+                            }
+                            else{
+                                setToken(verification.refresh)
+                            }
+                    })
+                }} type="submit" id='button-login'>Entrar</button>
             </form>
         </main>
     )

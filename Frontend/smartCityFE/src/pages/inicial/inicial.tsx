@@ -1,13 +1,15 @@
 import { Router, useLocation, useNavigate } from 'react-router-dom';
-import { useIsAuthenticated } from '../../utils/ManageLogin';
+import { getAccessByRefresh } from '../../services/loginService';
 import styles from './inicial.module.css';
 import { useEffect, useState } from 'react';
+import { useCookies } from 'react-cookie';
 export default function Inicial(){
     const navigation = useNavigate();
+    const [cookies, setCookies, removeCookies] = useCookies();
     useEffect(() =>{
         async function getLog(){
-            const isLogged = await useIsAuthenticated(localStorage.getItem('token'))
-            if(!isLogged){
+            const [isAuthorized, access] = await getAccessByRefresh(cookies['accessToken']);
+            if(!isAuthorized){
                 navigation('/login')
             }
         }

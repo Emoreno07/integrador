@@ -1,5 +1,6 @@
 export interface Sensor {
-    tipo: 'Temperatura' | 'Umidade' | 'Luminosidade' | 'Contador'
+    id? : number,
+    tipo: 'temperatura' | 'umidade' | 'luminosidade' | 'contador'
     unidadeMedida: string,
     latitude: number,
     longitude: number,
@@ -12,7 +13,8 @@ export interface Sensor {
     dados?: string,
 }
 export interface Data{
-    sensor : Sensor
+    id? : number,
+    sensor : number
     timestamp: string
     valor?: number,
 
