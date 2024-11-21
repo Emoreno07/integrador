@@ -8,8 +8,8 @@ export default function Inicial(){
     const [cookies, setCookies, removeCookies] = useCookies();
     useEffect(() =>{
         async function getLog(){
-            const [isAuthorized, access] = await getAccessByRefresh(cookies['accessToken']);
-            if(!isAuthorized){
+            const [isAuthorized, access] = await getAccessByRefresh(cookies['refreshToken']);
+            if(!isAuthorized || !access){
                 navigation('/login')
             }
         }

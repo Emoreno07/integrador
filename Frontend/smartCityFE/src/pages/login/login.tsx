@@ -28,7 +28,7 @@ export default function Login(){
     }
     useEffect(() =>{
         if(token){
-            setCookies('accessToken',token)
+            setCookies('refreshToken',token)
             nav('/')
         }
         return () => {}

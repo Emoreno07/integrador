@@ -1,7 +1,7 @@
 export interface Sensor {
     id? : number,
     tipo: 'temperatura' | 'umidade' | 'luminosidade' | 'contador'
-    unidadeMedida: string,
+    unidade_medida: string,
     latitude: number,
     longitude: number,
     localizacao: string,
@@ -17,6 +17,7 @@ export interface Data{
     sensor : number
     timestamp: string
     valor?: number,
+    results?: Data[]
 
 }
 export interface loginSchema{

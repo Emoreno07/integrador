@@ -30,7 +30,7 @@ export default function Sensores(){
         }
         getLog()
         return () =>{}
-    },[])
+    },[cookies])
     return (
         <main className={`${styles['main']}`}>
             <p className="titulo">CONTROLE DAS ÁREAS</p>

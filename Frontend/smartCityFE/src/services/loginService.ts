@@ -3,7 +3,6 @@ import { MouseEvent } from "react";
 import { useCookies } from "react-cookie";
 import { json, useNavigate } from "react-router-dom";
 export async function logUser(user: string, email: string, password: string, e : MouseEvent<any,any>) : Promise<Token | number>{
-    console.log('s')
     e.preventDefault();
     e.stopPropagation();
     const loginUser : loginSchema = {
