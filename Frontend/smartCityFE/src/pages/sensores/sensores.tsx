@@ -18,6 +18,7 @@ export default function Sensores(){
                 navigation('/login')
             }
             else{
+                //como a localizacao difere da que está em areas.ts, para caso de apresentação, decidi mudar a localização dos sensores para as que estão em areas.ts
                 let mysensores = await getAllSensors(access)
                 setSensores(mysensores.map(sensor =>{
                     let {localizacao, ...rest} = sensor;

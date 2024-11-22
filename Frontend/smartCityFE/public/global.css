@@ -56,6 +56,15 @@ section{
     width: 100%;
     min-height: 300px;
 }
+span{
+    color: white;
+}
+a{
+    color: blue;   
+}
+a:visited{
+    color : cyan
+}
 .titulo{
     font-size: 4rem;
     color: white;

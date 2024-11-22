@@ -1,1 +1,2 @@
+//as areas dos sensores. só mudar oarray para adicionar/diminuir as areas que aparecerão na tela de sensores
 export const areas = ['REFEITORIO', 'SALAS DE AULA','BIBLIOTECA','AUDITORIO','ESTACIONAMENTO']

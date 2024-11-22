@@ -13,4 +13,14 @@
 }
 .info-card{
     height: 100%;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.titulo-card{
+    color: #4095CE;
+}
+.img-card{
+    width: 25%;
+    height: auto;
+    object-fit: contain;
 }

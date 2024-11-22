@@ -15,7 +15,7 @@ export default function Inicial(){
         }
         getLog()
         return () =>{}
-    },[])
+    },[cookies])
     return(
         <main className={`flex-container flex-center`}>
             <section className={`flex-container flex-center`}>

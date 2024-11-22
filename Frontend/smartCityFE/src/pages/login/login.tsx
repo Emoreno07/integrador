@@ -1,31 +1,17 @@
-import { ChangeEvent, useEffect, useState } from 'react'
-import { logUser, verifyCredentials } from '../../services/loginService';
+import { useEffect, useState } from 'react'
+import {logUser, verifyCredentials } from '../../services/loginService';
 import styles from './login.module.css'
-import { json, useNavigate } from 'react-router-dom';
-import { Token } from '../../utils/types';
+import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
+import { handleFormStateInput } from '../../utils/inputEvent';
 
 export default function Login(){
     const [cookies,setCookies,removeCookies] = useCookies()
     const nav = useNavigate();
     const [user , setUser]= useState('');
     const [pass , setPass]= useState('');
-    const [email, setEmail] = useState('');
     const [token,setToken] = useState<string>();
-    const handleChange = (e : ChangeEvent) =>{
-        e.stopPropagation();
-        const id = e.currentTarget.getAttribute('id');
-        const input = e.currentTarget as HTMLInputElement;
-        if(id == 'user'){
-            setUser(input.value);
-        }
-        else if(id == 'email'){
-            setEmail(input.value);
-        }
-        else{
-            setPass(input.value);
-        }
-    }
+    const [error, setError] = useState<string>('')
     useEffect(() =>{
         if(token){
             setCookies('refreshToken',token)
@@ -38,19 +24,21 @@ export default function Login(){
             <form className={`flex-container flex-center flex-column ${styles['section']}`}>
                 <h1>LOGIN</h1>
                 <h2 className={`${styles['h2']}`}>Usuário</h2>
-                <input id='user' className={`${styles['input']}`} type="text" required={true} placeholder='meu usuario' onChange={handleChange}/>
-
-                <h2 className={`${styles['h2']}`}>Email</h2>
-                <input id='email' className={`${styles['input']}`} type="email" required={true} placeholder='example@example.com' onChange={handleChange}/>
-
-                <h2 className={`${styles['h2']}`}>Senha</h2>             
-                <input id='senha' className={`${styles['input']}`} type="password" required={true} placeholder='minha senha' onChange={handleChange}/>     
+                <input id='user' className={`${styles['input']}`} type="text" required={true} placeholder='meu usuario' onChange={handleFormStateInput(setUser)}/>
+                <h2 className={`${styles['h2']}`}>Senha</h2>    
+                <input id='senha' className={`${styles['input']}`} type="password" required={true} placeholder='minha senha' onChange={handleFormStateInput(setPass)}/>        
+                  
+                <span>Não tem um Login? <a href='/cadastro'>cadastre-se</a></span>
+                <span>{error}</span> 
                 <button onClick={(e) => {
-                    logUser(user,email,pass, e)
+                    logUser(user,pass, e)
                     .then(data => {
                         const verification = verifyCredentials(data)
                             if(typeof(verification) === 'string'){
-                                alert(verification)
+                                setTimeout(() =>{
+                                    setError("")
+                                }, 3000)
+                                setError(verification)
                             }
                             else{
                                 setToken(verification.refresh)

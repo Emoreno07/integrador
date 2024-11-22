@@ -6,7 +6,7 @@ export interface Sensor {
     longitude: number,
     localizacao: string,
     reponsavel: string,
-    status: boolean,
+    status_operacional: boolean,
     observacao?: string,
     mac_address?: string,
     nome?: string,
@@ -23,6 +23,9 @@ export interface Data{
 export interface loginSchema{
     username: string,
     password: string,
+}
+export interface cadastroSchema extends loginSchema{
+    email: string
 }
 export interface Token{
     access?: string,

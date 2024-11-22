@@ -10,7 +10,7 @@ export async function getAllSensors(accessToken : string) : Promise<Sensor[]>{
     const sensores = await sensoresResponse.json();
     return sensores
 }
-export async function getDataFromSensor(sensor : Sensor, accessToken : string) : Promise<Data | undefined>{
+export async function getDataFromSensor(sensor : Sensor, accessToken : string) : Promise<Data | number | undefined>{
     const resData = await fetch(`http://127.0.0.1:8000/api/${sensor.tipo}_filter/`,{
         method : 'POST',
         headers: {
@@ -32,21 +32,17 @@ export async function getDataFromSensor(sensor : Sensor, accessToken : string) :
         return highestValue
     }
     else{
-        if(dadosSensor.results?.length !==0){
-            const highestValue = dadosSensor.results?.reduce((prev,current) => {
-                let prevData = new Date(prev.timestamp);
-                let currentData = new Date(current.timestamp)
-                return (prevData > currentData) ? prev : current
-            })
-            return highestValue
-        }
-        else{
-            return undefined
-        }
+        return dadosSensor.results?.length;
     }
     
    
 }
-export async function getSensor(){
-
+export function showSensorData(data : Data | string | number | undefined, sensor : Sensor){
+    if(typeof(data) === 'string'){
+        return data
+    }
+    else if(typeof(data) === 'number'){
+        return 'Dados: ' + data + ' Pessoas'
+    }
+    return "Dados: " + ((data?.valor === undefined) ? "N/A" : data?.valor + sensor.unidade_medida)
 }

@@ -11,12 +11,14 @@ import Inicial from './pages/inicial/inicial.tsx'
 import Sensores from './pages/sensores/sensores.tsx'
 import SharedComponents from './pages/sharedComponents/shared.tsx'
 import Login from './pages/login/login.tsx'
+import Cadastro from './pages/cadastro/cadastro.tsx'
 const appRouter = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' Component={SharedComponents}>
       <Route index={true} Component={Inicial}/>
       <Route path='sensores' Component={Sensores}/>
       <Route path='login' Component={Login}/>
+      <Route path='cadastro' Component={Cadastro}/>
     </Route>
   )
 )

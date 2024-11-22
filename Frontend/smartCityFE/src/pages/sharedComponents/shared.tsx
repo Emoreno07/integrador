@@ -5,7 +5,7 @@ export default function SharedComponents(){
     const location = useLocation();
     return (
         <>
-           {location.pathname !== '/login' && <Header/>}
+           {location.pathname !== '/login' && location.pathname !==  '/cadastro' && <Header/>}
             <Outlet/>
             <Footer/>
         </>
