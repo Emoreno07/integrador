@@ -7,7 +7,7 @@ export default function Area({area, sensores} : {area : string, sensores: Sensor
             <h1>{area}</h1>
             <div className={`flex-container ${styles['area-card']}`}>
             {sensores.map((sensor,i)=> (
-                <Card key={i} sensor={sensor}/>
+                <Card key={i} _sensor={sensor}/>
             ))}
             </div>
             

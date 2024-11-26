@@ -12,6 +12,10 @@ class CreateUserAPIViewSet(generics.CreateAPIView):
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
 class SensorViewSet(viewsets.ModelViewSet):
+    def update(self, request, *args, **kwargs):
+        return super().update(request, *args, **kwargs)
+    def partial_update(self, request, *args, **kwargs):
+        return super().partial_update(request, *args, **kwargs)
     queryset = Sensor.objects.all()
     serializer_class = serializers.SensorSerializer
     permission_classes = [permissions.IsAuthenticated]

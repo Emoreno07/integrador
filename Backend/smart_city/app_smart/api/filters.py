@@ -25,6 +25,7 @@ class SensorFilterView(APIView):
         localizacao = request.data.get('localizacao', None)
         responsavel = request.data.get('responsavel', None)
         status_operacional = request.data.get('status_operacional', None)
+        id = request.data.get('id',None)
         filters = Q() # Inicializa um filtro vazio
         if tipo:
             filters &= Q(tipo__icontains=tipo)
@@ -32,6 +33,8 @@ class SensorFilterView(APIView):
             filters &= Q(localizacao__icontains=localizacao)
         if responsavel:
             filters &= Q(responsavel__icontains=responsavel)
+        if id:
+            filters &= Q(id=id)
         if status_operacional is not None:
             filters &= Q(status_operacional=status_operacional)
         queryset = Sensor.objects.filter(filters)

@@ -31,7 +31,7 @@ export async function logUser(user: string, password: string, e : MouseEvent<any
 export function verifyCredentials(token : number | Token) : string | Token{
     //verifica se o servidor retornou um status diferente de 200
     if(typeof(token) === 'number'){
-        return ( token === 400) ? 'Usuario ou senha invalidos!'  : 'something went wrong, code: ' + token
+        return ( token === 400 || token === 401) ? 'Usuario ou senha invalidos!'  : 'something went wrong, code: ' + token
     }
     else{
         return token
@@ -63,9 +63,7 @@ export async function getAccessByRefresh(refreshToken: string): Promise<[boolean
 
 }
 
-export async function createUser(user: string, password: string, email: string, e : MouseEvent<any,any>) : Promise<string>{
-    e.preventDefault();
-    e.stopPropagation();
+export async function createUser(user: string, password: string, email: string) : Promise<string>{
     const infoUser : cadastroSchema = {
         username : user,
         password : password,

@@ -18,14 +18,8 @@ export default function Sensores(){
                 navigation('/login')
             }
             else{
-                //como a localizacao difere da que está em areas.ts, para caso de apresentação, decidi mudar a localização dos sensores para as que estão em areas.ts
-                let mysensores = await getAllSensors(access)
-                setSensores(mysensores.map(sensor =>{
-                    let {localizacao, ...rest} = sensor;
-                    localizacao = areas[(Math.trunc(Math.random() * 5))];
-                    const s = {localizacao, ...rest};
-                    return s
-                }))
+                const Allsensors = await getAllSensors(access)
+                setSensores(Allsensors)
             }
             
         }
@@ -36,7 +30,7 @@ export default function Sensores(){
         <main className={`${styles['main']}`}>
             <p className="titulo">CONTROLE DAS ÁREAS</p>
             {areas.map((area, i)=> (
-                <Area key={i} area={area} sensores={sensores.filter(s => s.localizacao === areas[i])}/>
+                <Area key={i} area={area} sensores={sensores.filter(s => s.localizacao === area)}/>
             ))}
         </main>
     )

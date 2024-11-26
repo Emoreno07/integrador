@@ -8,14 +8,14 @@ export default function Cadastro(){
     const [pass, setPass] = useState<string>('');
     return(
         <main className="flex-container flex-center">
-            <form className={`flex-container flex-center flex-column ${styles['section']}`}>
+            <form action='' className={`flex-container flex-center flex-column ${styles['section']}`}>
                 <h1>CADASTRO</h1>
                 <h2 className={`${styles['h2']}`}>Usuário</h2>
                 <input
                 id='user'
                 className={`${styles['input']}`}
                 type="text"
-                required={true}
+                required
                 placeholder='meu usuario'
                 onChange={handleFormStateInput(setUser)}/>
 
@@ -24,7 +24,7 @@ export default function Cadastro(){
                 id='email'
                 className={`${styles['input']}`}
                 type="email"
-                required={true}
+                required
                 placeholder='example@example.com'
                 onChange={handleFormStateInput(setEmail)}/>
 
@@ -33,14 +33,14 @@ export default function Cadastro(){
                     id='senha'
                     className={`${styles['input']}`}
                     type="password"
-                    required={true}
+                    required
                     placeholder='minha senha'
                     onChange={handleFormStateInput(setPass)}/>
                 <span>Já tem Login? <a href='/login'>faça login</a></span>       
-                <button onClick={(e) => {
-                    createUser(user,pass,email,e)
+                <button onClick={() => {
+                    createUser(user,pass,email)
                     .then(message => alert(message))
-                }} type="submit" id='button-login'>Cadastrar</button>
+                }} type="submit">Cadastrar</button>
             </form>           
         </main>     
     )

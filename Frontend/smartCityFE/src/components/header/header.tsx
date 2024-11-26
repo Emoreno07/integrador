@@ -7,7 +7,7 @@ export default function Header(){
     const nav = useNavigate()
     return(
         <header className={`flex-container flex-center ${styles['header']}`}>
-        <img src={barco} alt="no" className={`${styles['img']}`} />
+        <img onClick={() => nav('/')} src={barco} alt="no" className={`${styles['img']}`} />
         <nav className={`flex-container flex-center grow ${styles['nav']}`}>
             <a href="" className={`${styles['a']}`}>SMART</a>
             <a href="" className={`${styles['a']}`}>AREAS</a>

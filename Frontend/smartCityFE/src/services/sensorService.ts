@@ -1,3 +1,4 @@
+import { SetStateAction } from "react";
 import { Data, Sensor } from "../utils/types";
 
 export async function getAllSensors(accessToken : string) : Promise<Sensor[]>{
@@ -45,4 +46,21 @@ export function showSensorData(data : Data | string | number | undefined, sensor
         return 'Dados: ' + data + ' Pessoas'
     }
     return "Dados: " + ((data?.valor === undefined) ? "N/A" : data?.valor + sensor.unidade_medida)
+}
+export function activeSensor(sensor: Sensor, access : string, setSensor : SetStateAction<any>){
+    return async () =>{
+        const res = await fetch(`http://localhost:8000/api/sensores/${sensor.id}/`,{
+            method:'PATCH',
+            headers:{
+                'Content-Type' : 'application/json',
+                'Authorization' : 'Bearer ' + access
+                },
+                body: JSON.stringify({
+                    status_operacional : !sensor.status_operacional
+                })
+        })
+        const json = await res.json();
+        setSensor(json)
+    }
+    
 }

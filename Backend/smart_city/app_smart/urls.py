@@ -16,8 +16,8 @@ urlpatterns = [
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/', include(router.urls)),
     path('api/sensor_filter/',filters.SensorFilterView.as_view(), name='sensor_filter'),
-    path('api/temperatura_filter/',filters.TemperaturaFilterView.as_view(), name='sesor_filter'),
-    path('api/umidade_filter/', filters.UmidadeFilterView.as_view()),
-    path('api/luminosidade_filter/', filters.LuminosidadeFilterView.as_view()),
-    path("api/contador_filter/", filters.ContadorFilterView.as_view())
+    path('api/Temperatura_filter/',filters.TemperaturaFilterView.as_view(), name='sesor_filter'),
+    path('api/Umidade_filter/', filters.UmidadeFilterView.as_view()),
+    path('api/Luminosidade_filter/', filters.LuminosidadeFilterView.as_view()),
+    path("api/Contador_filter/", filters.ContadorFilterView.as_view()),
 ]
