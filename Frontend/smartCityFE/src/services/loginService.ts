@@ -2,7 +2,6 @@ import { loginSchema, Token, cadastroSchema} from "../utils/types";
 import {MouseEvent} from "react";
 
 export async function logUser(user: string, password: string, e : MouseEvent<any,any>) : Promise<Token | number>{
-    //tenta pegar o token do usuário
     e.stopPropagation();
     e.preventDefault();
     const infoUser : loginSchema ={

@@ -25,7 +25,7 @@ export default function Inicial(){
             <section className={`flex-container flex-center `}>
                 <div className={`flex-container grow flex-column ${styles['area']} ${styles['como-ver']}`}>
                     <h1 className={`${styles['h1']}`}>COMO VER TODAS AS INFORMAÇÕES EM TEMPO REAL?</h1>
-                    <button style={{backgroundColor: '#000'}}>VER MAIS</button>
+                    <button style={{backgroundColor: '#000'}} onClick={() => navigation('/sensores')}>VER MAIS</button>
                 </div>
                 <div className={`flex-container grow flex-column ${styles['area']} ${styles['o-que']}`}>
                     <h1 className={`${styles['h1']}`}>O QUE É A SMARTCITY? E O QUE ELA FAZ?</h1>

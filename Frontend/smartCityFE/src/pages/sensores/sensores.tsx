@@ -28,7 +28,11 @@ export default function Sensores(){
     },[cookies])
     return (
         <main className={`${styles['main']}`}>
+            <div className={`flex-container flex-center ${styles['separator']}`}>
             <p className="titulo">CONTROLE DAS ÁREAS</p>
+            <img onClick={() => navigation('/sensores/addsensor')} className={styles['img-add']} src="/assets/add.png" alt="" />
+            </div>
+            
             {areas.map((area, i)=> (
                 <Area key={i} area={area} sensores={sensores.filter(s => s.localizacao === area)}/>
             ))}

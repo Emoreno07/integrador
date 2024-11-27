@@ -1,3 +1,11 @@
 .main{
     padding: 0px 50px;
 }
+.img-add{
+    border: dotted 4px #000;
+}
+.separator{
+    justify-content: space-between;
+    width: 100%;
+    height: fit-content;
+}

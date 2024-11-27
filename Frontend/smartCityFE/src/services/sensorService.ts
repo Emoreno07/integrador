@@ -1,4 +1,4 @@
-import { SetStateAction } from "react";
+import { SetStateAction, SyntheticEvent } from "react";
 import { Data, Sensor } from "../utils/types";
 
 export async function getAllSensors(accessToken : string) : Promise<Sensor[]>{
@@ -63,4 +63,51 @@ export function activeSensor(sensor: Sensor, access : string, setSensor : SetSta
         setSensor(json)
     }
     
+}
+export function setSensorData(sensor: Sensor, access: string, setData : SetStateAction<any>){
+    return async (e : SyntheticEvent<HTMLInputElement>) =>{
+        const currentInput = e.currentTarget;
+        let data : string | number = currentInput.value;
+        if(!data){
+            currentInput.style.display = 'none'
+            return;
+        }
+        data = Number(data)
+        let body = undefined;
+        let res;
+        if(sensor.tipo.toLowerCase() != 'contador'){
+            body = {
+                valor: data,
+                sensor: sensor.id
+            }
+            res = await fetch(`http://localhost:8000/api/${sensor.tipo.toLowerCase()}/`,{
+                method: 'POST',
+                headers :{
+                    'Content-Type' : 'application/json',
+                    'Authorization': 'Bearer ' + access
+                },
+                body : JSON.stringify(body)
+            })
+            const json = await res.json();
+            setData(json)
+        }
+        else{
+            body = {
+                sensor: sensor.id
+            }
+            for(let i = 0; i < data; i++){
+                res = await fetch(`http://localhost:8000/api/${sensor.tipo.toLowerCase()}/`,{
+                    method: 'POST',
+                    headers :{
+                        'Content-Type' : 'application/json',
+                        'Authorization': 'Bearer ' + access
+                    },
+                    body : JSON.stringify(body)
+                })
+                setData(data)
+            }
+        }
+       currentInput.style.display = 'none';
+        return
+    }
 }

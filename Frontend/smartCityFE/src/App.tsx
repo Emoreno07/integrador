@@ -12,11 +12,13 @@ import Sensores from './pages/sensores/sensores.tsx'
 import SharedComponents from './pages/sharedComponents/shared.tsx'
 import Login from './pages/login/login.tsx'
 import Cadastro from './pages/cadastro/cadastro.tsx'
+import CadastroSensor from './pages/cadastroSensor/CadastroSensor.tsx'
 const appRouter = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' Component={SharedComponents}>
       <Route index={true} Component={Inicial}/>
       <Route path='sensores' Component={Sensores}/>
+      <Route path='sensores/addSensor' Component={CadastroSensor}/>
       <Route path='login' Component={Login}/>
       <Route path='cadastro' Component={Cadastro}/>
     </Route>

@@ -1,7 +1,7 @@
 import { SetStateAction, useEffect, useState } from "react";
 import { Data, Sensor } from "../../utils/types.ts";
 import styles from './card.module.css'
-import { getDataFromSensor, showSensorData, activeSensor } from "../../services/sensorService.ts";
+import { getDataFromSensor, showSensorData, activeSensor, setSensorData } from "../../services/sensorService.ts";
 import { getAccessByRefresh } from "../../services/loginService.ts";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
@@ -12,6 +12,7 @@ export default function Card({_sensor} : {_sensor : Sensor}){
     const [cookies, setCookies, removeCookies] = useCookies();
     const [access, setAccess] = useState<string>('');
     const [sensor, setSensor] = useState<Sensor>(_sensor);
+    const [displayInput, setDisplayInput] = useState<string>('none');
     useEffect(() =>{    
 
         async function getData(){
@@ -35,8 +36,12 @@ export default function Card({_sensor} : {_sensor : Sensor}){
         <div className={`flex-container flex-center ${styles['sensor']}`}>
             <div className={`${styles['barrinha-lateral'    ]}`}></div>
             <div className={`flex-container flex-center flex-column grow ${styles['info-card']}`}>
-                <h2 className={`${styles['titulo-card']}`}>Sensor de {sensor.tipo}</h2>
-                <h3>{showSensorData(dados,sensor)}</h3>
+                <h2 className={`flex-container flex-center ${styles['titulo-card']}`}>Sensor de {sensor.tipo}</h2>       
+                <h3 className={`flex-container flex-center ${styles['value']}`}>
+                    {showSensorData(dados,sensor)}
+                    <input type="number" style={{display : `${displayInput}`}} onBlur={setSensorData(sensor,access,setDados)} className={styles['input-value']}/>
+                    <img src="assets/edit.png" onClick={() => {setDisplayInput('flex') ; }} style={{width: '20px', height: '20px'}}/>
+                </h3>
             <img src={`/assets/sensor-${sensor.tipo}.png`}  className={styles['img-card']} />
                 <h3><strong>Status</strong>: {sensor.status_operacional ? 'Ativo' : "Inativo"}</h3>
                 <h1></h1>
