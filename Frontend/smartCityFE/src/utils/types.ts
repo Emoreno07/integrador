@@ -1,6 +1,7 @@
+export const tipos = ['temperatura','umidade','luminosidade','contador'] as const;
 export interface Sensor {
     id? : number,
-    tipo: 'temperatura' | 'umidade' | 'luminosidade' | 'contador'
+    tipo: typeof tipos[number]
     unidade_medida: string,
     latitude: number,
     longitude: number,
@@ -30,4 +31,8 @@ export interface cadastroSchema extends loginSchema{
 export interface Token{
     access?: string,
     refresh?: string
+}
+export interface areaComData{
+    area: string,
+    data : Data[]
 }

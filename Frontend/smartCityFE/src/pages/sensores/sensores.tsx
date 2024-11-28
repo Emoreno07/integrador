@@ -5,7 +5,7 @@ import styles from './sensores.module.css'
 import { useEffect, useState } from 'react';
 import { Sensor } from '../../utils/types';
 import { useCookies } from 'react-cookie';
-import { getAccessByRefresh } from '../../services/loginService';
+import { getAccessByRefresh, LogWithToken } from '../../services/loginService';
 import { getAllSensors } from '../../services/sensorService';
 export default function Sensores(){
     const navigation = useNavigate();
@@ -13,8 +13,8 @@ export default function Sensores(){
     const [cookies, setCookies, removeCookies] = useCookies();
     useEffect(() =>{
         async function getLog(){
-            const [isAuthorized, access] = await getAccessByRefresh(cookies['refreshToken']);
-            if(!isAuthorized || !access){
+            const access = await LogWithToken(cookies['refreshToken'])
+            if(!access){
                 navigation('/login')
             }
             else{

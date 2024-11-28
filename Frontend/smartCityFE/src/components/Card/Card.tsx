@@ -2,7 +2,7 @@ import { SetStateAction, useEffect, useState } from "react";
 import { Data, Sensor } from "../../utils/types.ts";
 import styles from './card.module.css'
 import { getDataFromSensor, showSensorData, activeSensor, setSensorData } from "../../services/sensorService.ts";
-import { getAccessByRefresh } from "../../services/loginService.ts";
+import { getAccessByRefresh, LogWithToken } from "../../services/loginService.ts";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 
@@ -16,16 +16,10 @@ export default function Card({_sensor} : {_sensor : Sensor}){
     useEffect(() =>{    
 
         async function getData(){
-            const [isAuthorized, acc] = await getAccessByRefresh(cookies['refreshToken']);
-            if(!isAuthorized || !acc){
-                navigation('/login')
-            }
-            else{
-                setAccess(acc)
-                let data = await getDataFromSensor(sensor,acc); 
-                setDados((data))
-                
-            }
+            const acc = await LogWithToken(cookies['refreshToken']);
+            setAccess(acc)
+            let data = await getDataFromSensor(sensor,acc); 
+            setDados((data))
         }
         getData()
        

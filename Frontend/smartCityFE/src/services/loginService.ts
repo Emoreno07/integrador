@@ -36,7 +36,7 @@ export function verifyCredentials(token : number | Token) : string | Token{
         return token
     }
 }
-export async function getAccessByRefresh(refreshToken: string): Promise<[boolean, string | undefined]>{
+export async function getAccessByRefresh(refreshToken: string): Promise<string | undefined>{
     //como boa pratica de não colocar usuário e senha no navegador, decidi colocar o refresh do token e que seja gerado um access que fica como variavel
     const req = await fetch('http://127.0.0.1:8000/api/token/refresh/',{
         method: 'POST',
@@ -48,7 +48,7 @@ export async function getAccessByRefresh(refreshToken: string): Promise<[boolean
         })
     })
     const token: Token = await req.json()
-    if(!token) return [false, ''];
+    if(!token) return '';
     //verifica se o token gerado está autorizado a consumir a API
     const logged = await fetch('http://127.0.0.1:8000/api/sensores/', {
         method: 'GET',
@@ -57,11 +57,18 @@ export async function getAccessByRefresh(refreshToken: string): Promise<[boolean
         }
     })
     //caso não esteja autorizado. em caso de expansão de hierarquia de accesso.
-    return [logged.status !== 401, token.access];
+    return token.access;
     
 
 }
-
+export async function LogWithToken(token : string) : Promise<string>{
+    const accessToken = await getAccessByRefresh(token)
+    if(!accessToken){
+        return ''
+    }
+    return accessToken
+    
+}
 export async function createUser(user: string, password: string, email: string) : Promise<string>{
     const infoUser : cadastroSchema = {
         username : user,

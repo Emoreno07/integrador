@@ -37,7 +37,8 @@ export default function Cadastro(){
                     placeholder='minha senha'
                     onChange={handleFormStateInput(setPass)}/>
                 <span>Já tem Login? <a href='/login'>faça login</a></span>       
-                <button onClick={() => {
+                <button onClick={(e) => {
+                    e.preventDefault();
                     createUser(user,pass,email)
                     .then(message => alert(message))
                 }} type="submit">Cadastrar</button>
