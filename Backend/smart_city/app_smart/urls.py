@@ -5,10 +5,10 @@ from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 router = DefaultRouter()
 router.register(r'sensores',viewsets.SensorViewSet)
-router.register(r'Temperatura',viewsets.TemperaturaDataViewSet)
-router.register(r'Umidade',viewsets.UmidadeDataViewSet)
-router.register(r'Luminosidade',viewsets.LuminosidadeDataViewSet)
-router.register(r'Contador',viewsets.ContadorDataViewSet)
+router.register(r'temperatura',viewsets.TemperaturaDataViewSet)
+router.register(r'umidade',viewsets.UmidadeDataViewSet)
+router.register(r'luminosidade',viewsets.LuminosidadeDataViewSet)
+router.register(r'contador',viewsets.ContadorDataViewSet)
 urlpatterns = [
     path('',views.abre_index, name='abre_index'),
     path('api/create_user/', viewsets.CreateUserAPIViewSet.as_view()),

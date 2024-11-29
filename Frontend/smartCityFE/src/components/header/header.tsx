@@ -11,7 +11,7 @@ export default function Header(){
         <nav className={`flex-container flex-center grow ${styles['nav']}`}>
             <a href="" className={`${styles['a']}`}>SMART</a>
             <a href="" className={`${styles['a']}`}>AREAS</a>
-            <a href="" className={`${styles['a']}`}>DASHBOARDS</a>
+            <a href="/dashboards" className={`${styles['a']}`}>DASHBOARDS</a>
             <a href="/sensores" className={`${styles['a']}`}>SENSORES</a>
         </nav>
         <button onClick={() => {

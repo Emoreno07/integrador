@@ -33,6 +33,11 @@ export interface Token{
     refresh?: string
 }
 export interface areaComData{
+    tipo: string
     area: string,
     data : Data[]
+}
+export interface dataSet{
+    label: string,
+    data : any
 }

@@ -15,6 +15,7 @@ export default async function getAllDataFromType(type : string, access: string) 
     areas.forEach((area) => {
         const sensoresFromArea = sensores.filter((sensor) => sensor.localizacao === area)
         valuesWithArea.push({
+            tipo: type,
             area : area,
             data: valuesWithType.filter((value) => sensoresFromArea.some((sensor) => sensor.id === value.sensor))
         })
