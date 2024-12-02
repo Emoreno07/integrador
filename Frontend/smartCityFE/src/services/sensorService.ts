@@ -1,7 +1,9 @@
 import { SetStateAction, SyntheticEvent } from "react";
 import { Data, Sensor } from "../utils/types";
+import { mostRecentDateFromDates } from "../utils/DateFunctions";
 
 export async function getAllSensors(accessToken : string) : Promise<Sensor[]>{
+    //obtem todos os sensores
     const sensoresResponse = await fetch('http://127.0.0.1:8000/api/sensores',{
         method : 'GET',
         headers : {
@@ -12,6 +14,7 @@ export async function getAllSensors(accessToken : string) : Promise<Sensor[]>{
     return sensores
 }
 export async function getDataFromSensor(sensor : Sensor, accessToken : string) : Promise<Data | number | undefined>{
+    //obtem todos os dados de um determindado sensor
     const resData = await fetch(`http://127.0.0.1:8000/api/${sensor.tipo}_filter/`,{
         method : 'POST',
         headers: {
@@ -25,13 +28,9 @@ export async function getDataFromSensor(sensor : Sensor, accessToken : string) :
     const dadosSensor : Data[] | Data =  await resData.json();
     if(dadosSensor instanceof Array){
         if(dadosSensor.length === 0) return undefined;
-        const highestValue = dadosSensor.reduce((prev,current) => {
-            let prevData = new Date(prev.timestamp);
-            let currentData = new Date(current.timestamp)
-            return (prevData > currentData) ? prev : current
-        })
-        return highestValue
+        return mostRecentDateFromDates(dadosSensor)
     }
+    //se é um sensor de contador, é tratado de forma diferente
     else{
         return dadosSensor.results?.length;
     }
@@ -39,6 +38,7 @@ export async function getDataFromSensor(sensor : Sensor, accessToken : string) :
    
 }
 export function showSensorData(data : Data | string | number | undefined, sensor : Sensor){
+    //formata os dados de um sensor de acordo com os parâmetros
     if(typeof(data) === 'string'){
         return data
     }
@@ -48,6 +48,7 @@ export function showSensorData(data : Data | string | number | undefined, sensor
     return "Dados: " + ((data?.valor === undefined) ? "N/A" : data?.valor + sensor.unidade_medida)
 }
 export function activeSensor(sensor: Sensor, access : string, setSensor : SetStateAction<any>){
+    //ativa o sensor no banco
     return async () =>{
         const res = await fetch(`http://localhost:8000/api/sensores/${sensor.id}/`,{
             method:'PATCH',
@@ -65,9 +66,11 @@ export function activeSensor(sensor: Sensor, access : string, setSensor : SetSta
     
 }
 export function setSensorData(sensor: Sensor, access: string, setData : SetStateAction<any>){
+    //coloca o novo valor do sensor passado no campo
     return async (e : SyntheticEvent<HTMLInputElement>) =>{
         const currentInput = e.currentTarget;
         let data : string | number = currentInput.value;
+        //caso o campo esteja vazio, não muda nada.
         if(!data){
             currentInput.style.display = 'none'
             return;
@@ -75,6 +78,7 @@ export function setSensorData(sensor: Sensor, access: string, setData : SetState
         data = Number(data)
         let body = undefined;
         let res;
+        // a requisição para mudar o valor do sensor é diferente quando o sensor é contador
         if(sensor.tipo.toLowerCase() != 'contador'){
             body = {
                 valor: data,
@@ -110,4 +114,5 @@ export function setSensorData(sensor: Sensor, access: string, setData : SetState
        currentInput.style.display = 'none';
         return
     }
+    //mandar um novo valor atualiza o valor do sensor, pois o sensor ele pegará o valor mais recente que está no id dele no banco.
 }

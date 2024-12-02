@@ -87,6 +87,7 @@ export async function createUser(user: string, password: string, email: string) 
     if(request.status === 201){
         return 'cadastrado com sucesso'
     }
+    //caso não consiga mostrar o usuário, mostre o campo que falta
     else if(request.status === 400){
         const data = await request.json()
         return data?.email || data?.username || data?.password

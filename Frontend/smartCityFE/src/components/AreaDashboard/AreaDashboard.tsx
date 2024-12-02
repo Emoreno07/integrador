@@ -3,14 +3,21 @@ import { Data, dataSet } from '../../utils/types'
 import styles from './AreaDashboard.module.css'
 import Chart from 'chart.js/auto';
 import getAllDataFromType from '../../services/dataService';
+import { divideValuesBasedOnDate } from '../../utils/DateFunctions';
+import { getAllSensors } from '../../services/sensorService';
 export default function AreaDashboard({tipo, access} : {tipo :string, access: string}){
     const ref = useRef<any | null>(null);
     const canvas = useRef<HTMLCanvasElement | null>(null);
     const [data,setData] = useState<Data[]>([]);
     const [datasets, setDatasets] = useState<dataSet[]>([]);
     const [labels,setLabels] = useState<number[]>([]);
+    const [unidade, setUnidade] = useState<string | undefined>();
     useEffect(() =>{
-      if(!canvas.current || labels.length == 0) return;
+      //luminosidade tem um valor bem maior que o resto dos gráficos, então tem que diferenciar
+      const isLuminosidade = tipo.toLowerCase() === 'luminosidade';
+      const sensors = getAllSensors(access).then(sensores => setUnidade(sensores.find((sensor) => sensor.tipo.toLowerCase() === tipo)?.unidade_medida))
+      
+      if(!canvas.current) return;
             if(ref.current){
                 ref.current.destroy();
             }
@@ -21,6 +28,7 @@ export default function AreaDashboard({tipo, access} : {tipo :string, access: st
                   datasets: datasets
                 },
                 options:{
+                  maintainAspectRatio : false,
                   scales:{
                     x:{
                       min: 0, max: 24,
@@ -29,40 +37,28 @@ export default function AreaDashboard({tipo, access} : {tipo :string, access: st
                       }
                     },
                     y:{
-                      max: 1000,
+                      max: (isLuminosidade) ? 1000 : 100,
                       min: 0,
+                      ticks:{
+                        callback: (v,i,t) => v+(unidade ?? '')
+                      }
                     }
                     
                   }
                 }
               });
-    },[labels])
+    },[datasets,unidade])
     useEffect(() =>{
       const a = async () =>{
         const dados = await getAllDataFromType(tipo,access);
-        
-        // const possibleHours = [...new Set(getDataLabels.map((datalabel) => new Date(datalabel.timestamp).getHours()))]
-        // const hoursDivided =  possibleHours.map((hour) =>{
-        //   const arrayOfSinglehours = getDataLabels.filter((data) => new Date(data.timestamp).getHours() == hour)
-        //   console.log(arrayOfSinglehours)
-        //   return arrayOfSinglehours.reduce((prev,current) => {
-        //     let prevData = new Date(prev.timestamp);
-        //     let currentData = new Date(current.timestamp)
-        //     return (prevData > currentData) ? prev : current
-        // })
-        // })
-        const myDatasets = dados.map((dado) =>{
+      
+        const myDatasets  = dados.map((dado) =>{
           return {
             label: dado.area,
-            data : dado.data.reduce()
+            data : divideValuesBasedOnDate('Horas',dado.data)
           } 
         })
-        
-        // setDatasets(myDatasets)
-        // const datas = getDataLabels.map((data) => new Date(data.timestamp));
-        // let hours = [...new Set(datas.map((hour) => hour.getHours()))]
-        // hours = hours.sort((a,b) => a - b)  
-        // setLabels(hours)
+        setDatasets(myDatasets)
         
       }
       a();
@@ -73,8 +69,7 @@ export default function AreaDashboard({tipo, access} : {tipo :string, access: st
             <h1>Dados de {tipo}</h1>
             <div className={`flex-container flex-center ${styles['grafico']}`}>
             <canvas ref={canvas}></canvas>
-            </div>
-            
+            </div>          
         </section>
     )
 }

@@ -39,5 +39,9 @@ export interface areaComData{
 }
 export interface dataSet{
     label: string,
-    data : any
+    data : axis[] | undefined
+}
+export interface axis{
+    x : any,
+    y : any
 }
