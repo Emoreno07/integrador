@@ -1,7 +1,15 @@
 .grafico{
     width: 70%;
-
 }
 .grafico canvas{
     width: 100%;
+}
+.title-date-picker{
+    width: 70%;
+    justify-content: space-between;
+    height: fit-content;
+}
+.title-date-picker input{
+    background-color: transparent;
+    border: none;
 }

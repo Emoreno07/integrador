@@ -15,7 +15,7 @@ export default function DashBoards(){
         })()
     },[])
     return(
-        <main className={`flex-container flex-center flex-column`}>
+        <main className={`flex-container flex-center flex-column ${styles['main-dashboard']}`}>
             {token && tipos.map((tipo,i) =>(
                 <AreaDashboard key={i} access={token} tipo={tipo}/>
             ))}

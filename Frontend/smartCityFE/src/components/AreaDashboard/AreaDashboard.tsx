@@ -1,22 +1,23 @@
 import { useEffect, useRef, useState } from 'react'
-import { Data, dataSet } from '../../utils/types'
+import { Data,dataSet } from '../../utils/types'
 import styles from './AreaDashboard.module.css'
 import Chart from 'chart.js/auto';
 import getAllDataFromType from '../../services/dataService';
-import { divideValuesBasedOnDate } from '../../utils/DateFunctions';
+import { divideValuesBasedOnDate, getALlDataFromDay } from '../../utils/DateFunctions';
 import { getAllSensors } from '../../services/sensorService';
+import { handleFormStateInput } from '../../utils/inputEvent';
 export default function AreaDashboard({tipo, access} : {tipo :string, access: string}){
     const ref = useRef<any | null>(null);
     const canvas = useRef<HTMLCanvasElement | null>(null);
-    const [data,setData] = useState<Data[]>([]);
     const [datasets, setDatasets] = useState<dataSet[]>([]);
-    const [labels,setLabels] = useState<number[]>([]);
     const [unidade, setUnidade] = useState<string | undefined>();
+    const [date,SetDate] = useState<string>('');
+    const defaultDate = new Date(Date.now())
+    const dateFormatted = `${defaultDate.getFullYear()}-${defaultDate.toLocaleString("pt-br",{ month : '2-digit'})}-${defaultDate.toLocaleString("pt-br",{ day : '2-digit'})}`;
     useEffect(() =>{
       //luminosidade tem um valor bem maior que o resto dos gráficos, então tem que diferenciar
       const isLuminosidade = tipo.toLowerCase() === 'luminosidade';
-      const sensors = getAllSensors(access).then(sensores => setUnidade(sensores.find((sensor) => sensor.tipo.toLowerCase() === tipo)?.unidade_medida))
-      
+      getAllSensors(access).then(sensores => setUnidade(sensores.find((sensor) => sensor.tipo.toLowerCase() === tipo)?.unidade_medida))
       if(!canvas.current) return;
             if(ref.current){
                 ref.current.destroy();
@@ -50,23 +51,34 @@ export default function AreaDashboard({tipo, access} : {tipo :string, access: st
     },[datasets,unidade])
     useEffect(() =>{
       const a = async () =>{
-        const dados = await getAllDataFromType(tipo,access);
-      
+        const dados = await getAllDataFromType(tipo,access);  
+  
         const myDatasets  = dados.map((dado) =>{
+          let data : Data[] = [];
+          if(date){
+            data = getALlDataFromDay(new Date(date),dado.data)
+          }
+          else{
+            data = getALlDataFromDay(defaultDate,dado.data,true)
+          }
           return {
             label: dado.area,
-            data : divideValuesBasedOnDate('Horas',dado.data)
+            data : divideValuesBasedOnDate('Horas',data)
           } 
         })
         setDatasets(myDatasets)
         
       }
       a();
-    },[])
+    },[date])
     
     return(
-        <section className={`flex-container flex-center flex-column`}>
+        <section className={`flex-container flex-center flex-column ${styles['section']}`}>
+          <div className={`flex-container ${styles['title-date-picker']}`}>
             <h1>Dados de {tipo}</h1>
+            <input onChange={handleFormStateInput(SetDate)} type="date" defaultValue={dateFormatted}/>
+          </div>
+            
             <div className={`flex-container flex-center ${styles['grafico']}`}>
             <canvas ref={canvas}></canvas>
             </div>          
