@@ -36,9 +36,9 @@ export function divideValuesBasedOnDate(typeOfDivider : 'Minutos' | 'Segundos' |
     return dataSet 
 }
 
-export function getALlDataFromDay(date : Date, data : Data[], byDefult?: boolean) : Data[]{
-    let day = parseInt(date.toLocaleString("pt-br",{ day : '2-digit'})) + (!byDefult? 1 : 0);
-    let month = parseInt(date.toLocaleString("pt-br",{ month : '2-digit'}));
+export function getALlDataFromDay(date : Date, data : Data[]) : Data[]{
+    let day = date.getDate()
+    let month = date.getMonth() + 1
     let year = date.getFullYear();
         return data.filter(
             (date) =>

@@ -1,7 +1,6 @@
 import styles from './dashboards.module.css'
-import { Chart } from 'chart.js'
 import AreaDashboard from '../../components/AreaDashboard/AreaDashboard'
-import {Data, tipos} from '../../utils/types'
+import { tipos} from '../../utils/types'
 import { useEffect, useState } from 'react'
 import { LogWithToken } from '../../services/loginService'
 import { useCookies } from 'react-cookie'

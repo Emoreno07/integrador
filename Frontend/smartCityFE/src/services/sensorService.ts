@@ -65,14 +65,13 @@ export function activeSensor(sensor: Sensor, access : string, setSensor : SetSta
     }
     
 }
-export function setSensorData(sensor: Sensor, access: string, setData : SetStateAction<any>){
+export function setSensorData(sensor: Sensor, access: string, setData : SetStateAction<any>, setInput : SetStateAction<any>){
     //coloca o novo valor do sensor passado no campo
     return async (e : SyntheticEvent<HTMLInputElement>) =>{
-        const currentInput = e.currentTarget;
-        let data : string | number = currentInput.value;
+        let data : string | number = e.currentTarget.value;
         //caso o campo esteja vazio, não muda nada.
         if(!data){
-            currentInput.style.display = 'none'
+            setInput('none')
             return;
         }
         data = Number(data)
@@ -111,8 +110,20 @@ export function setSensorData(sensor: Sensor, access: string, setData : SetState
                 setData(data)
             }
         }
-       currentInput.style.display = 'none';
+        setInput('none')
         return
     }
     //mandar um novo valor atualiza o valor do sensor, pois o sensor ele pegará o valor mais recente que está no id dele no banco.
+}
+export async function createSensor(sensor : Sensor, access : string) : Promise<Sensor | string>{
+    const res = await fetch('http://127.0.0.1:8000/api/sensores/',{
+        method: 'POST',
+        headers:{
+            'Content-Type' : 'application/json',
+            'Authorization' : 'Bearer ' + access
+        },
+        body: JSON.stringify(sensor)
+    })
+    return (res.status !== 201) ? 'BAD' : (await res.json());
+    
 }

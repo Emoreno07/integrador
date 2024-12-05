@@ -16,6 +16,9 @@
     flex-direction: column;
     justify-content: space-around;
 }
+.info-card h3 img{
+    cursor: pointer;
+}
 .titulo-card{
     color: #4095CE;
 }

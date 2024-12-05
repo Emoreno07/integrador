@@ -56,10 +56,10 @@ export default function AreaDashboard({tipo, access} : {tipo :string, access: st
         const myDatasets  = dados.map((dado) =>{
           let data : Data[] = [];
           if(date){
-            data = getALlDataFromDay(new Date(date),dado.data)
+            data = getALlDataFromDay(new Date(`${date}T00:00:00`),dado.data)
           }
           else{
-            data = getALlDataFromDay(defaultDate,dado.data,true)
+            data = getALlDataFromDay(defaultDate,dado.data)
           }
           return {
             label: dado.area,

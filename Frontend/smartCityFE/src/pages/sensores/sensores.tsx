@@ -1,13 +1,14 @@
 import { useNavigate } from 'react-router-dom';
 import Area from '../../components/Area/Area'
-import { areas } from '../../utils/areas'
 import styles from './sensores.module.css'
 import { useEffect, useState } from 'react';
 import { Sensor } from '../../utils/types';
 import { useCookies } from 'react-cookie';
-import { getAccessByRefresh, LogWithToken } from '../../services/loginService';
+import { LogWithToken } from '../../services/loginService';
 import { getAllSensors } from '../../services/sensorService';
+import GetAreas from '../../services/areas';
 export default function Sensores(){
+    const [areas, setAreas] = useState<string[]>([]);
     const navigation = useNavigate();
     const [sensores, setSensores] = useState<Sensor[]>([])
     const [cookies, setCookies, removeCookies] = useCookies();
@@ -18,6 +19,8 @@ export default function Sensores(){
                 navigation('/login')
             }
             else{
+                const myAreas = await GetAreas(access)
+                setAreas(myAreas)
                 const Allsensors = await getAllSensors(access)
                 setSensores(Allsensors)
             }

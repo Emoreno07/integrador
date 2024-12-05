@@ -1,3 +1,0 @@
-//as areas dos sensores. só mudar oarray para adicionar/diminuir as areas que aparecerão na tela de sensores.
-//TODO: automatizar as áreas de acordo com a quantidade de áreas em todos os sensores. dinamizar...
-export const areas = ['LAB 100', 'LAB 101','LAB 102','LAB 103','LAB 104', 'LAB 105', 'LAB 106', 'LAB 107', 'LAB 108', 'LAB 109']
