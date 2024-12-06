@@ -78,12 +78,12 @@ export function setSensorData(sensor: Sensor, access: string, setData : SetState
         let body = undefined;
         let res;
         // a requisição para mudar o valor do sensor é diferente quando o sensor é contador
-        if(sensor.tipo.toLowerCase() != 'contador'){
+        if(sensor.tipo != 'Contador'){
             body = {
                 valor: data,
                 sensor: sensor.id
             }
-            res = await fetch(`http://localhost:8000/api/${sensor.tipo.toLowerCase()}/`,{
+            res = await fetch(`http://localhost:8000/api/${sensor.tipo}/`,{
                 method: 'POST',
                 headers :{
                     'Content-Type' : 'application/json',
@@ -124,6 +124,6 @@ export async function createSensor(sensor : Sensor, access : string) : Promise<S
         },
         body: JSON.stringify(sensor)
     })
-    return (res.status !== 201) ? 'BAD' : (await res.json());
+    return (res.status !== 201) ? res.text().then(e => e) : 'Cadastrado Com sucesso!'
     
 }

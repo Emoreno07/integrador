@@ -2,8 +2,11 @@
     justify-content: space-between;
     width: 100%;
     min-height: 150px;
-    background-color: transparent;
+    background-color: #B3D2E7;
     padding-right: 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1;
 }
 .nav{
     justify-content: space-evenly;

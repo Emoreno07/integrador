@@ -1,4 +1,4 @@
-export const tipos = ['temperatura','umidade','luminosidade','contador'] as const;
+export const tipos = ['Temperatura','Umidade','Luminosidade','Contador'] as const;
 export interface Sensor {
     id? : number,
     tipo: typeof tipos[number]
@@ -6,7 +6,7 @@ export interface Sensor {
     latitude: number,
     longitude: number,
     localizacao: string,
-    reponsavel: string,
+    responsavel: string,
     status_operacional: boolean,
     observacao?: string,
     mac_address?: string,
