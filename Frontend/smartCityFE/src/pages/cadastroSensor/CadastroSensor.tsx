@@ -20,6 +20,20 @@ export default function CadastroSensor(){
     const [un,setUn] = useState<string>('');
     const [areas,setAreas] = useState<string[]>([]);
     const [outro, setOutro] = useState<string>('');
+    setUn(() =>{
+        if(tipo === 'Contador'){
+            return 'contagem'
+        }
+        else if(tipo === 'Luminosidade'){
+            return ''
+        }
+        else if(tipo === 'Temperatura'){
+            return 'C°'
+        }
+        else{
+            return '%'
+        }
+    })
     useEffect(() =>{
         async function getLog(){
             const myAccess = await LogWithToken(cookies['refreshToken'])
