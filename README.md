@@ -31,7 +31,7 @@ pip install -r requirements.txt
 <p>rode o servidor, ainda no diretório smart_city</p>
 
 ```bash
-py manage.py runserver
+py manage.py migrate && py manage.py runserver
 ```
 
 <p>Note: o servidor deve ser feito primeiro para o site funcionar O.o</p>
