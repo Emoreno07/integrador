@@ -38,3 +38,6 @@ py manage.py runserver
 
 <p>Note: o servidor deve ser feito primeiro para o site funcionar O.o</p>
 
+<h2>O que o smart city faz?</h2>
+
+<p>foi desenvolvido com objetivo de mostrar os dados de sensores, analisar esses dados e transformá-los em gráficos que mostram as informações atualizadas, alem de poder gerenciar e criar novos sensores, permite a classificação deles</p>
