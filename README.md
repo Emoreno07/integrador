@@ -49,4 +49,4 @@ py manage.py runserver
 
 <h2>O que o smart city faz?</h2>
 
-<p>foi desenvolvido com objetivo de mostrar os dados de sensores, analisar esses dados e transformá-los em gráficos que mostram as informações atualizadas e recente s(classificadas por horas) , alem de poder gerenciar e criar novos sensores, permite a classificação deles</p>
+<p>foi desenvolvido com objetivo de mostrar os dados de sensores, analisar esses dados e transformá-los em gráficos que mostram as informações atualizadas e recentes(classificadas por dias e por horas) , alem de poder gerenciar e criar novos sensores, permite a classificação deles</p>
