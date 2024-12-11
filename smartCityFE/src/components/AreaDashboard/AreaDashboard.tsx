@@ -18,7 +18,6 @@ export default function AreaDashboard({tipo, access} : {tipo :string, access: st
       //luminosidade tem um valor bem maior que o resto dos gráficos, então tem que diferenciar
       const isLuminosidade = tipo.toLowerCase() === 'luminosidade';
       getAllSensors(access).then(sensores => setUnidade(sensores.find((sensor) => sensor.tipo.toLowerCase() === tipo.toLowerCase())?.unidade_medida))
-      console.log(unidade)
       if(!canvas.current) return;
             if(ref.current){
                 ref.current.destroy();
