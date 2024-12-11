@@ -39,6 +39,7 @@ py load_contador.py
 py load_umidade.py
 py load_luminosidade.py
 ```
+<p>obs: como os dados são lançados com o horario atual, apenas o mais recente é contado. pode ser testado o gráfico mudando o valor do sensor a cada hora.</p>
 <p>rode o servidor, ainda no diretório smart_city</p>
 
 ```bash
@@ -49,4 +50,4 @@ py manage.py runserver
 
 <h2>O que o smart city faz?</h2>
 
-<p>foi desenvolvido com objetivo de mostrar os dados de sensores, analisar esses dados e transformá-los em gráficos que mostram as informações atualizadas e recentes(classificadas por dias e por horas) , alem de poder gerenciar e criar novos sensores, permite a classificação deles</p>
+<p>foi desenvolvido com o objetivo de mostrar os dados de sensores, analisar esses dados e transformá-los em gráficos que mostram as informações atualizadas e recentes(classificadas por dias e por horas) , alem de poder gerenciar os sensores atuais e criar novos sensores, permite a classificação deles.</p>
