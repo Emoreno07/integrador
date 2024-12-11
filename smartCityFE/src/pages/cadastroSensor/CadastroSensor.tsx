@@ -17,23 +17,8 @@ export default function CadastroSensor(){
     const [local, setlocal] = useState<string>('');
     const [responsavel, setResponsavel] = useState<string>('');
     const [ob, setOb] = useState<string>('');
-    const [un,setUn] = useState<string>('');
     const [areas,setAreas] = useState<string[]>([]);
     const [outro, setOutro] = useState<string>('');
-    setUn(() =>{
-        if(tipo === 'Contador'){
-            return 'contagem'
-        }
-        else if(tipo === 'Luminosidade'){
-            return ''
-        }
-        else if(tipo === 'Temperatura'){
-            return 'C°'
-        }
-        else{
-            return '%'
-        }
-    })
     useEffect(() =>{
         async function getLog(){
             const myAccess = await LogWithToken(cookies['refreshToken'])
@@ -105,12 +90,25 @@ export default function CadastroSensor(){
 
                 
                 <button onClick={(e) =>{
+                    let un : string;
                     e.preventDefault()
                     if(!areas.some(area => area === local || local === 'outro')){
                         alert('Area inválida!'); return;
                     }
                     if(!tipos.some((tipo) => tipo === tipo)){
                         alert('Tipo de sensor Inválido'); return;
+                    }
+                    if(tipo === 'Contador'){
+                        un =  'contagem'
+                    }
+                    else if(tipo === 'Luminosidade'){
+                        un =   ''
+                    }
+                    else if(tipo === 'Temperatura'){
+                        un =   'C°'
+                    }
+                    else{
+                        un =   '%'
                     }
                     createSensor({
                         tipo: tipo,
