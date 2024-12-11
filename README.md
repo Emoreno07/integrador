@@ -29,10 +29,19 @@ cd smart_city
 pip install -r requirements.txt
 ```
 
-<p>rode o servidor, ainda no diretório smart_city</p>
+<p>coloque os dados</p>
 
 ```bash
 py manage.py migrate
+py load_csv.py
+py load_temperatura.py
+py load_contador.py
+py load_umidade.py
+py load_luminosidade.py
+```
+<p>rode o servidor, ainda no diretório smart_city</p>
+
+```bash
 py manage.py runserver
 ```
 
@@ -40,4 +49,4 @@ py manage.py runserver
 
 <h2>O que o smart city faz?</h2>
 
-<p>foi desenvolvido com objetivo de mostrar os dados de sensores, analisar esses dados e transformá-los em gráficos que mostram as informações atualizadas, alem de poder gerenciar e criar novos sensores, permite a classificação deles</p>
+<p>foi desenvolvido com objetivo de mostrar os dados de sensores, analisar esses dados e transformá-los em gráficos que mostram as informações atualizadas e recente s(classificadas por horas) , alem de poder gerenciar e criar novos sensores, permite a classificação deles</p>
